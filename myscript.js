@@ -9,7 +9,7 @@ BONUS
 2- popolare le options della select della milestone 3 dinamicamente. */
 
 
-const icons=[
+let icons=[
 	{
 		name: 'cat',
 		prefix: 'fa-',
@@ -126,16 +126,59 @@ const icons=[
 
 const container = document.getElementById('containerIcons');
 
-for(let i=0; i<icons.length; i++){
-	container.innerHTML += createIconsContainer(icons[i])
-}
 
-function createIconsContainer (iconData){
-	const {name, prefix, type, family, color}= iconData;
-	return`
-	<div class="box">
-		<i class="${family} ${prefix}${name} ${color}"></i>
-		<div class="title">${name}</div>
-	</div>`
 
-}
+
+
+let select = document.getElementById('icons-select');
+	
+	let selectedChoice = icons;
+	
+
+select.addEventListener('change', function(){
+	groupSelected = select.value;
+	console.log(groupSelected);
+	if (groupSelected === "all"){
+		selectedChoice= icons;
+		
+
+	}else if(groupSelected === "animal"){
+		selectedChoice = icons.filter((types) => {
+			
+			return types.type === "animal"; 
+
+		})
+	}else if(groupSelected === "user"){
+		selectedChoice = icons.filter((types) => {
+			return types.type === "user"
+			
+		})
+	}else if(groupSelected === "vegetable"){
+		selectedChoice = icons.filter((types) => {
+			return types.type === "vegetable"
+		})
+	}	
+	console.log(selectedChoice);
+	
+	
+	createIconsContainer (selectedChoice);
+	
+});
+
+
+
+function createIconsContainer (){
+	let icons = selectedChoice;
+	
+	container.innerHTML = "";
+	for (let i=0; i< icons.length; i++) {
+		container.innerHTML +=
+		`
+		<div class="box">
+			<i class="${icons[i].family} ${icons[i].prefix}${icons[i].name} ${icons[i].color} ${icons[i].type}"></i>
+			<div class="title">${icons[i].name}</div>
+		</div>`
+	};
+		
+	};
+
