@@ -9,176 +9,177 @@ BONUS
 2- popolare le options della select della milestone 3 dinamicamente. */
 
 
-let icons=[
+const icons=[
 	{
 		name: 'cat',
 		prefix: 'fa-',
 		type: 'animal',
 		family: 'fas',
-		color: 'orange'
+		color: generateColor()
 	},
 	{
 		name: 'crow',
 		prefix: 'fa-',
 		type: 'animal',
 		family: 'fas',
-		color: 'orange'
+		color: generateColor()
 	},
 	{
 		name: 'dog',
 		prefix: 'fa-',
 		type: 'animal',
 		family: 'fas',
-		color: 'orange'
+		color: generateColor()
 	},
 	{
 		name: 'dove',
 		prefix: 'fa-',
 		type: 'animal',
 		family: 'fas',
-		color: 'orange'
+		color: generateColor()
 	},
 	{
 		name: 'dragon',
 		prefix: 'fa-',
 		type: 'animal',
 		family: 'fas',
-		color: 'orange'
+		color: generateColor()
 	},
 	{
 		name: 'horse',
 		prefix: 'fa-',
 		type: 'animal',
 		family: 'fas',
-		color: 'orange'
+		color: generateColor()
 	},
 	{
 		name: 'hippo',
 		prefix: 'fa-',
 		type: 'animal',
 		family: 'fas',
-		color: 'orange'
+		color: generateColor()
 	},
 	{
 		name: 'fish',
 		prefix: 'fa-',
 		type: 'animal',
 		family: 'fas',
-		color: 'orange'
+		color: generateColor()
 	},
 	{
 		name: 'carrot',
 		prefix: 'fa-',
 		type: 'vegetable',
 		family: 'fas',
-		color: 'green'
+		color: generateColor()
 	},
 	{
 		name: 'apple-alt',
 		prefix: 'fa-',
 		type: 'vegetable',
 		family: 'fas',
-		color: 'green'
+		color: generateColor()
 	},
 	{
 		name: 'lemon',
 		prefix: 'fa-',
 		type: 'vegetable',
 		family: 'fas',
-		color: 'green'
+		color: generateColor()
 	},
 	{
 		name: 'pepper-hot',
 		prefix: 'fa-',
 		type: 'vegetable',
 		family: 'fas',
-		color: 'green'
+		color: generateColor()
 	},
 	{
 		name: 'user-astronaut',
 		prefix: 'fa-',
 		type: 'user',
 		family: 'fas',
-		color: 'blue'
+		color: generateColor()
 	},
 	{
 		name: 'user-graduate',
 		prefix: 'fa-',
 		type: 'user',
 		family: 'fas',
-		color: 'blue'
+		color: generateColor()
 	},
 	{
 		name: 'user-ninja',
 		prefix: 'fa-',
 		type: 'user',
 		family: 'fas',
-		color: 'blue'
+		color: generateColor()
 	},
 	{
 		name: 'user-secret',
 		prefix: 'fa-',
 		type: 'user',
 		family: 'fas',
-		color: 'blue'
+		color: generateColor()
 	}
 ];
 
+
 const container = document.getElementById('containerIcons');
+const filter = document.getElementById('icons-select');
 
+createIconsContainer(filter.value);
 
-
-
-
-let select = document.getElementById('icons-select');
-	
-	let selectedChoice = icons;
-	
-
-select.addEventListener('change', function(){
-	groupSelected = select.value;
-	console.log(groupSelected);
-	if (groupSelected === "all"){
-		selectedChoice= icons;
-		
-
-	}else if(groupSelected === "animal"){
-		selectedChoice = icons.filter((types) => {
-			
-			return types.type === "animal"; 
-
-		})
-	}else if(groupSelected === "user"){
-		selectedChoice = icons.filter((types) => {
-			return types.type === "user"
-			
-		})
-	}else if(groupSelected === "vegetable"){
-		selectedChoice = icons.filter((types) => {
-			return types.type === "vegetable"
-		})
-	}	
-	console.log(selectedChoice);
-	
-	
-	createIconsContainer (selectedChoice);
-	
+filter.addEventListener('change', function(){
+	container.innerHTML = "";
+	createIconsContainer(this.value);
+	console.log(this.value)
 });
 
 
-
-function createIconsContainer (){
-	let icons = selectedChoice;
-	
-	container.innerHTML = "";
-	for (let i=0; i< icons.length; i++) {
-		container.innerHTML +=
-		`
-		<div class="box">
-			<i class="${icons[i].family} ${icons[i].prefix}${icons[i].name} ${icons[i].color} ${icons[i].type}"></i>
-			<div class="title">${icons[i].name}</div>
-		</div>`
-	};
 		
-	};
 
+function createIconsContainer(filter){
+	console.log('wwwwwwwwww');
+	icons.forEach((element) => {
+		console.log('wwwwwwwwww')
+		if((element.type == filter) || (filter == "all")){
+			container.innerHTML += createIconContainer(element);
+			console.log('ghj')
+		}
+    })
+};
+
+function createIconContainer (icon){
+	const{family, prefix, color, name}=icon;
+		return`
+		<div class="box">
+			<i class="${family} ${prefix}${name}" style="color: ${color};"></i>
+			<div class="title">${name}</div>
+		</div>`
+};
+
+function generateColor(){	
+	console.log('generateColor')
+    // pick highest possible number -> 0xFFFFFF = 16777215 = 16mb-1 = 2^24-1
+	var color = '#'+Math.floor(Math.random()*0xffffff).toString(16);
+	console.log(color);
+	return color;
+};
+
+function generateRandomNumber(min, max){
+	return Math.floor(Math.random() * (max - min +1)) + min;
+};
+
+
+
+
+
+/*function generateColor(){
+	const symbols = '0123456789ABCDEF';
+	let color ="#";
+	for(let i=0; i<6; i++){
+		const posizione = generateRandomN
+
+	}
+} */
